@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script src="echarts.js"></script>
+ 
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    let color = ['#da0d68', '#da1d23', '#ebb40f'];
+data = [
+    {
+        name: '政策',
+        value: 4,
+        children: [
+            {
+                name: '交通物流',
+                value: 1,
+                children: [
+                    {
+                        name: '开辟公路',
+                        value: 1,
+                        children: [
+                            {
+                                name: '建设轨道',
+                                value: 1,
+                                children: [
+                                    {
+                                        name: '高铁通车',
+                                        value: 1,
+                                        children: [
+                                            {
+                                                name: '机场建成',
+                                                value: 1,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: '科技创新',
+                value: 1,
+                children: [
+                    {
+                        name: '育种技术',
+                        value: 0.7,
+                        children: [
+                            {
+                                name: '研究所',
+                                value: 0.7,
+                                children: [
+                                    {
+                                        name: '国外交流',
+                                        value: 0.35,
+                                        children: [
+                                            {
+                                                name: '引进品种',
+                                                value: 0.35,
+                                            },
+                                        ],
+                                    },
+                                    {
+                                        name: '国内育种',
+                                        value: 0.35,
+                                        children: [
+                                            {
+                                                name: '培育花种',
+                                                value: 0.35,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        name: '鲜花保鲜',
+                        value: 0.3,
+                        children: [
+                            {
+                                name: '冷链运输',
+                                value: 0.3,
+                                children: [
+                                    {
+                                        name: '采收预冷',
+                                        value: 0.3,
+                                        children: [
+                                            {
+                                                name: '生物保鲜',
+                                                value: 0.3,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: '规划发展',
+                value: 1,
+                children: [
+                    {
+                        name: '产业发展',
+                        value: 1,
+                        children: [
+                            {
+                                name: '市场建立',
+                                value: 0.5,
+                                children: [
+                                    {
+                                        name: '扩大规模',
+                                        value: 0.5,
+                                        children: [
+                                            {
+                                                name: '发展电商',
+                                                value: 0.5,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                            {
+                                name: '对外开放',
+                                value: 0.5,
+                                children: [
+                                    {
+                                        name: '跨境贸易',
+                                        value: 0.5,
+                                        children: [
+                                            {
+                                                name: '产业合作',
+                                                value: 0.5,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+            {
+                name: '人文交流',
+                value: 1,
+                children: [
+                    {
+                        name: '开办展会',
+                        value: 1,
+                        children: [
+                            {
+                                name: '立体展示',
+                                value: 1,
+                                children: [
+                                    {
+                                        name: '提高名气',
+                                        value: 1,
+                                        children: [
+                                            {
+                                                name: '国际合作',
+                                                value: 0.5,
+                                            },
+                                            {
+                                                name: '国际展会',
+                                                value: 0.5,
+                                            },
+                                        ],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
+];
+option = {
+    tooltip: {
+        show: true,
+        formatter: (params) => {
+            return params.name;
+        },
+    },
+    color: color,
+    title: {
+        text: '改革开放政策推动',
+        top: 20,
+        left: 0,
+        textStyle: {
+            fontWeight: 'bold',
+            fontSize: 18,
+            color: '#14374B',
+        },
+    },
+    legend: {
+        //type:'scroll',
+        show: true,
+        bottom: 20,
+        x: 'center',
+        // data: ['干部人事']
+    },
+    series: {
+        type: 'sunburst',
+        data: data,
+        radius: ['20%', '40%'],
+        center: ['50%', '50%'],
+        sort: undefined,
+        emphasis: {
+            focus: 'ancestor',
+        },
+        label: {
+            rotate: 'tangential',
+            color: '#fff',
+            formatter: (params) => {
+                if (params.name.length > 4) {
+                    return params.name.substring(0, 4) + '...';
+                } else {
+                    return params.name;
+                }
+            },
+        },
+        levels: [
+            {},
+            {
+                r0: '0%',
+                r: '20%',
+                itemStyle: {
+                    color: '#fff',
+                },
+                label: {
+                    color: '#000',
+                    fontWeight: 'bold',
+                    fontSize: 24,
+                    padding: [0, 0, 40, 0],
+                },
+            },
+            {
+                r0: '20%',
+                r: '36%',
+                itemStyle: {
+                    color: '#5FC2FF',
+                },
+            },
+            {
+                r0: '36%',
+                r: '51%',
+                itemStyle: {
+                    color: '#667ADD',
+                },
+            },
+            {
+                r0: '51%',
+                r: '67%',
+                itemStyle: {
+                    // borderWidth: 0,
+                    color: '#FFC701',
+                },
+            },
+            {
+                r0: '67%',
+                r: '83%',
+                itemStyle: {
+                    // borderWidth: 0,
+                    color: '#FF8E06',
+                },
+            },
+            {
+                r0: '83%',
+                r: '100%',
+                itemStyle: {
+                    color: '#4475C2',
+                },
+            },
+        ],
+    },
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
